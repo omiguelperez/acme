@@ -1,0 +1,5 @@
+# Django
+# ------------------------------------------------------------------------------
+Django==3.2.4   # https://www.djangoproject.com/
+djangorestframework==3.12.4  # https://github.com/encode/django-rest-framework
+
