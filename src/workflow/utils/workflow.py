@@ -147,10 +147,5 @@ class Workflow(WorkflowParamExtractorMixin,
                 return step
         return None
 
-    def follow(self, current_step):
-        if self.check_conditions(current_step['conditions']):
-            if next_step := self.get_step(current_step['target']):
-                self.process_step(next_step)
-
     def run_trigger(self):
         self.process_step(self.workflow_data['trigger'])
