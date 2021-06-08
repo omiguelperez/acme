@@ -1,5 +1,9 @@
 # Django
 # ------------------------------------------------------------------------------
 Django==3.2.4   # https://www.djangoproject.com/
+django-environ==0.4.5  # https://github.com/joke2k/django-environ
 djangorestframework==3.12.4  # https://github.com/encode/django-rest-framework
 
+# DB
+# ------------------------------------------------------------------------------
+djongo==1.3.6  # https://www.djongomapper.com/

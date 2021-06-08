@@ -1,0 +1,32 @@
+version: '3'
+
+volumes:
+  acme_local_mongo_data: {}
+
+services:
+
+  django:
+    build: .
+    image: acme_local_django
+    container_name: acme_django
+    depends_on:
+      - mongo
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.django
+      - ./.envs/.mongo
+    ports:
+      - 8000:8000
+    command: /start
+
+  mongo:
+    image: mongo:4.2.3-bionic
+    container_name: acme_mongo
+    env_file:
+      - ./.envs/.mongo
+    ports:
+      - 27018:27017
+    volumes:
+      - acme_local_mongo_data:/data/db
+    restart: unless-stopped

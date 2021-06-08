@@ -1,0 +1,11 @@
+# This base was downloaded from https://github.com/pydanny/cookiecutter-django
+
+.editorconfig
+.gitattributes
+.github
+.gitignore
+.gitlab-ci.yml
+.idea
+.pre-commit-config.yaml
+.readthedocs.yml
+.travis.yml

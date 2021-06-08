@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+import environ
+
+env = environ.Env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3l#m5ew^ibr_aljl*iif))b!rm93*0bnmo7rg_w)h684ve3)a&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DJANGO_DEBUG', False)
 
 ALLOWED_HOSTS = []
 
@@ -75,8 +79,14 @@ WSGI_APPLICATION = 'acme.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': env.str('MONGO_INITDB_DATABASE'),
+        'CLIENT': {
+            'host': env.str('MONGO_HOST'),
+            'username': env.str('MONGO_INITDB_ROOT_USERNAME'),
+            'password': env.str('MONGO_INITDB_ROOT_PASSWORD'),
+            'port': env.str('MONGO_PORT', default=27017),
+        }
     }
 }
 

@@ -1,0 +1,6 @@
+# General
+# ------------------------------------------------------------------------------
+DJANGO_DEBUG=yes
+USE_DOCKER=yes
+IPYTHONDIR=/app/.ipython
+
