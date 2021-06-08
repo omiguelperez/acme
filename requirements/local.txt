@@ -1,1 +1,5 @@
 -r base.txt
+
+# Django
+# ------------------------------------------------------------------------------
+factory-boy==3.2.0  # https://github.com/FactoryBoy/factory_boy
