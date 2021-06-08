@@ -55,20 +55,20 @@ class WorkflowExampleTestCase(TestCase):
             self.assertEqual(withdraw_log['action'], 'withdraw_in_dollars')
             self.assertEqual(withdraw_log['id'], 'withdraw_30')
             self.assertEqual(withdraw_log['params']['user_id'], '105398891')
-            self.assertEqual(withdraw_log['params']['money'], Decimal(30_000))
-            self.assertEqual(withdraw_log['output']['balance'], Decimal(120_000))
+            self.assertEqual(withdraw_log['params']['money'], 30)
+            self.assertEqual(withdraw_log['output']['balance'], Decimal(149_970))
 
             account_balance_end_log = workflow.logs[3]
             self.assertEqual(account_balance_end_log['action'], 'get_account_balance')
-            self.assertEqual(account_balance_end_log['id'], 'account_balance')
+            self.assertEqual(account_balance_end_log['id'], 'account_balance_end_30')
             self.assertEqual(account_balance_end_log['params']['user_id'], '105398891')
             self.assertEqual(
                 account_balance_end_log['output']['balance'],
-                Decimal(120_000)
+                Decimal(149_970)
             )
 
             self.assertEqual(workflow.initial_balance, Decimal(150_000))
-            self.assertEqual(workflow.new_balance, Decimal(120_000))
+            self.assertEqual(workflow.new_balance, Decimal(149_970))
 
     def test_process_workflow_path_2(self):
         with open(workflow_example_path) as workflow_example_file:
@@ -116,12 +116,12 @@ class WorkflowExampleTestCase(TestCase):
 
             withdraw_50_log = workflow.logs[4]
             self.assertEqual(withdraw_50_log['action'], 'withdraw_in_dollars')
-            self.assertEqual(withdraw_50_log['id'], 'withdraw_30')
+            self.assertEqual(withdraw_50_log['id'], 'withdraw_50')
             self.assertEqual(withdraw_50_log['params']['user_id'], '105398891')
             self.assertEqual(withdraw_50_log['params']['money'], Decimal(50_000))
             self.assertEqual(withdraw_50_log['output']['balance'], Decimal(220_000))
 
-            account_balance_end_log = workflow.logs[4]
+            account_balance_end_log = workflow.logs[5]
             self.assertEqual(account_balance_end_log['action'], 'get_account_balance')
             self.assertEqual(account_balance_end_log['id'], 'account_balance_end_50')
             self.assertEqual(account_balance_end_log['params']['user_id'], '105398891')

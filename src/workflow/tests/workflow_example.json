@@ -125,7 +125,7 @@
         {
           "condition": [
             {
-              "from_id": "account_balance",
+              "from_id": "account_balance_200",
               "field_id": "balance",
               "operator": "gt",
               "value": 250000

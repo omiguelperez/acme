@@ -11,7 +11,7 @@ class WorkflowWithConditionsTestCase(TestCase):
 
     def setUp(self):
         self.user = UserFactory(
-            user_id='108273847',
+            user_id='12345',
             pin=1234
         )
         self.account = AccountFactory(
@@ -149,7 +149,7 @@ class WorkflowWithConditionsTestCase(TestCase):
                             'condition': [
                                 {
                                     'from_id': 'account_balance',
-                                    'param_id': 'balance',
+                                    'field_id': 'balance',
                                     'operator': 'gt',
                                     'value': 199_999,
                                 }
@@ -168,10 +168,10 @@ class WorkflowWithConditionsTestCase(TestCase):
                         'money': {
                             'from_id': None,
                             'value': Decimal(150_000),
-                        },
-                        'action': 'withdraw_in_dollars',
-                        'transitions': []
-                    }
+                        }
+                    },
+                    'action': 'withdraw_in_dollars',
+                    'transitions': []
                 }
             ],
             'trigger': {
@@ -266,12 +266,12 @@ class WorkflowWithConditionsTestCase(TestCase):
                             'condition': [
                                 {
                                     'from_id': 'account_balance',
-                                    'param_id': 'balance',
+                                    'field_id': 'balance',
                                     'operator': 'gte',
                                     'value': Decimal(200_000),
                                 }
                             ],
-                            'target': 'withdraw_150'
+                            'target': 'withdraw_200'
                         }
                     ]
                 },
@@ -285,10 +285,10 @@ class WorkflowWithConditionsTestCase(TestCase):
                         'money': {
                             'from_id': None,
                             'value': Decimal(200_000),
-                        },
-                        'action': 'withdraw_in_dollars',
-                        'transitions': []
-                    }
+                        }
+                    },
+                    'action': 'withdraw_in_dollars',
+                    'transitions': []
                 }
             ],
             'trigger': {
@@ -328,10 +328,10 @@ class WorkflowWithConditionsTestCase(TestCase):
 
         withdraw_log = workflow.logs[2]
         self.assertEqual(withdraw_log['action'], 'withdraw_in_dollars')
-        self.assertEqual(withdraw_log['id'], 'withdraw_150')
+        self.assertEqual(withdraw_log['id'], 'withdraw_200')
         self.assertEqual(withdraw_log['params']['user_id'], '12345')
         self.assertEqual(withdraw_log['params']['money'], Decimal(200_000))
-        self.assertEqual(withdraw_log['output']['balance'], Decimal(200_000))
+        self.assertEqual(withdraw_log['output']['balance'], Decimal(0))
 
         self.assertEqual(workflow.initial_balance, Decimal(200_000))
         self.assertEqual(workflow.new_balance, Decimal(0))
@@ -383,7 +383,7 @@ class WorkflowWithConditionsTestCase(TestCase):
                             'condition': [
                                 {
                                     'from_id': 'account_balance',
-                                    'param_id': 'balance',
+                                    'field_id': 'balance',
                                     'operator': 'lt',
                                     'value': Decimal(50_000),
                                 }
@@ -403,9 +403,9 @@ class WorkflowWithConditionsTestCase(TestCase):
                             'from_id': None,
                             'value': Decimal(50_000),
                         },
-                        'action': 'withdraw_in_dollars',
-                        'transitions': []
-                    }
+                    },
+                    'action': 'deposit_money',
+                    'transitions': []
                 }
             ],
             'trigger': {
@@ -500,7 +500,7 @@ class WorkflowWithConditionsTestCase(TestCase):
                             'condition': [
                                 {
                                     'from_id': 'account_balance',
-                                    'param_id': 'balance',
+                                    'field_id': 'balance',
                                     'operator': 'lte',
                                     'value': Decimal(50_000),
                                 }
@@ -520,9 +520,9 @@ class WorkflowWithConditionsTestCase(TestCase):
                             'from_id': None,
                             'value': Decimal(50_000),
                         },
-                        'action': 'withdraw_in_dollars',
-                        'transitions': []
-                    }
+                    },
+                    'action': 'deposit_money',
+                    'transitions': []
                 }
             ],
             'trigger': {
