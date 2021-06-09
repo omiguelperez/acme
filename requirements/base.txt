@@ -3,6 +3,7 @@
 Django==3.2.4   # https://www.djangoproject.com/
 django-environ==0.4.5  # https://github.com/joke2k/django-environ
 djangorestframework==3.12.4  # https://github.com/encode/django-rest-framework
+django-prettyjson==0.4.1  # https://github.com/kevinmickey/django-prettyjson
 
 # DB
 # ------------------------------------------------------------------------------

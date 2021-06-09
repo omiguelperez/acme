@@ -1,6 +1,9 @@
-from django.contrib import admin
+from django.db import models
 
-from src.workflow.models import Account, User
+from django.contrib import admin
+from prettyjson import PrettyJSONWidget
+
+from src.workflow.models import Account, User, Upload
 
 
 @admin.register(User)
@@ -18,3 +21,13 @@ class AccountAdmin(admin.ModelAdmin):
     readonly_fields = ('id',)
     autocomplete_fields = ('user',)
     search_fields = ('user__user_id',)
+
+
+@admin.register(Upload)
+class UploadAdmin(admin.ModelAdmin):
+
+    formfield_overrides = {
+        models.JSONField: {'widget': PrettyJSONWidget}
+    }
+    readonly_fields = ('id', 'file', 'success',)
+    list_display = ('id', 'file',)

@@ -95,6 +95,10 @@ class WorkflowFileUploadSerializer(serializers.ModelSerializer):
         except WorkflowException:
             # handle exception, maybe send to sentry
             pass
-        upload.logs = json.dumps(workflow.logs, cls=DjangoJSONEncoder)
+        upload.logs = json.loads(
+            json.dumps(
+                workflow.logs,
+                cls=DjangoJSONEncoder
+            )
+        )
         upload.save()
-
