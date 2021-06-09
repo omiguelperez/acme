@@ -1,8 +1,10 @@
-from enum import Enum
+from collections import OrderedDict
 
 from src.workflow.utils.abstracts import AbstractAuthenticationClass
-from src.workflow.utils.exceptions import InvalidActionException, \
-    InsufficientBalanceException
+from src.workflow.utils.exceptions import (
+    InvalidActionException,
+    InsufficientBalanceException,
+)
 
 
 class WorkflowParamExtractorMixin:
@@ -22,7 +24,7 @@ class WorkflowParamExtractorMixin:
     def get_params(self, current_step):
         params = {}
         for param, source in current_step['params'].items():
-            if type(source) == dict:
+            if type(source) in (dict, OrderedDict):
                 if source['from_id'] is None:
                     params |= {
                         param: source['value']
@@ -56,6 +58,7 @@ class WorkflowActionsMixin:
 
         auth_data = self.authentication_class.authenticate(user_id=user_id, pin=pin)
         self.initial_balance = self.new_balance = auth_data['balance']
+        self.user_id = user_id
         return {
             'is_valid': auth_data['is_valid'],
             'balance': self.initial_balance,
@@ -90,6 +93,7 @@ class Workflow(WorkflowParamExtractorMixin,
 
         self.initial_balance = None
         self.new_balance = None
+        self.user_id = None
 
         self.authentication_class = authentication_class
 

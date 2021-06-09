@@ -41,3 +41,12 @@ class Account(ACMEModel):
             'user_id': self.user.user_id,
             'balance': self.balance,
         }
+
+
+class Upload(ACMEModel):
+
+    file = models.FileField(
+        upload_to='workflow/files/'
+    )
+    success = models.BooleanField(default=False)
+    logs = models.JSONField(default=list)
