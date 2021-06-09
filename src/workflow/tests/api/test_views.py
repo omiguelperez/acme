@@ -43,30 +43,29 @@ class WorkflowAPITestCase(APITestCase):
 
             upload = Upload.objects.get(pk=upload_id)
 
-            upload_logs = json.loads(upload.logs)
-            self.assertEqual(len(upload_logs), 4)
+            self.assertEqual(len(upload.logs), 4)
 
-            validate_account_log = upload_logs[0]
+            validate_account_log = upload.logs[0]
             self.assertEqual(validate_account_log['action'], 'validate_account')
             self.assertEqual(validate_account_log['id'], 'validate_account')
             self.assertEqual(validate_account_log['params']['user_id'], '105398891')
             self.assertEqual(validate_account_log['params']['pin'], '****')
             self.assertTrue(validate_account_log['output']['is_valid'])
 
-            account_balance_log = upload_logs[1]
+            account_balance_log = upload.logs[1]
             self.assertEqual(account_balance_log['action'], 'get_account_balance')
             self.assertEqual(account_balance_log['id'], 'account_balance')
             self.assertEqual(account_balance_log['params']['user_id'], '105398891')
             self.assertEqual(account_balance_log['output']['balance'], '150000.00')
 
-            withdraw_log = upload_logs[2]
+            withdraw_log = upload.logs[2]
             self.assertEqual(withdraw_log['action'], 'withdraw_in_dollars')
             self.assertEqual(withdraw_log['id'], 'withdraw_30')
             self.assertEqual(withdraw_log['params']['user_id'], '105398891')
             self.assertEqual(withdraw_log['params']['money'], 30)
             self.assertEqual(withdraw_log['output']['balance'], '149970.00')
 
-            account_balance_end_log = upload_logs[3]
+            account_balance_end_log = upload.logs[3]
             self.assertEqual(account_balance_end_log['action'], 'get_account_balance')
             self.assertEqual(account_balance_end_log['id'], 'account_balance_end_30')
             self.assertEqual(account_balance_end_log['params']['user_id'], '105398891')
@@ -92,43 +91,42 @@ class WorkflowAPITestCase(APITestCase):
 
             upload = Upload.objects.get(pk=upload_id)
 
-            upload_logs = json.loads(upload.logs)
-            self.assertEqual(len(upload_logs), 6)
+            self.assertEqual(len(upload.logs), 6)
 
-            validate_account_log = upload_logs[0]
+            validate_account_log = upload.logs[0]
             self.assertEqual(validate_account_log['action'], 'validate_account')
             self.assertEqual(validate_account_log['id'], 'validate_account')
             self.assertEqual(validate_account_log['params']['user_id'], '105398891')
             self.assertEqual(validate_account_log['params']['pin'], '****')
             self.assertTrue(validate_account_log['output']['is_valid'])
 
-            account_balance_log = upload_logs[1]
+            account_balance_log = upload.logs[1]
             self.assertEqual(account_balance_log['action'], 'get_account_balance')
             self.assertEqual(account_balance_log['id'], 'account_balance')
             self.assertEqual(account_balance_log['params']['user_id'], '105398891')
             self.assertEqual(account_balance_log['output']['balance'], '70000.00')
 
-            deposit_200_log = upload_logs[2]
+            deposit_200_log = upload.logs[2]
             self.assertEqual(deposit_200_log['action'], 'deposit_money')
             self.assertEqual(deposit_200_log['id'], 'deposit_200')
             self.assertEqual(deposit_200_log['params']['user_id'], '105398891')
             self.assertEqual(deposit_200_log['params']['money'], 200_000)
             self.assertEqual(deposit_200_log['output']['balance'], '270000.00')
 
-            account_balance_200_log = upload_logs[3]
+            account_balance_200_log = upload.logs[3]
             self.assertEqual(account_balance_200_log['action'], 'get_account_balance')
             self.assertEqual(account_balance_200_log['id'], 'account_balance_200')
             self.assertEqual(account_balance_200_log['params']['user_id'], '105398891')
             self.assertEqual(account_balance_200_log['output']['balance'], '270000.00')
 
-            withdraw_50_log = upload_logs[4]
+            withdraw_50_log = upload.logs[4]
             self.assertEqual(withdraw_50_log['action'], 'withdraw_in_dollars')
             self.assertEqual(withdraw_50_log['id'], 'withdraw_50')
             self.assertEqual(withdraw_50_log['params']['user_id'], '105398891')
             self.assertEqual(withdraw_50_log['params']['money'], 50_000)
             self.assertEqual(withdraw_50_log['output']['balance'], '220000.00')
 
-            account_balance_end_log = upload_logs[5]
+            account_balance_end_log = upload.logs[5]
             self.assertEqual(account_balance_end_log['action'], 'get_account_balance')
             self.assertEqual(account_balance_end_log['id'], 'account_balance_end_50')
             self.assertEqual(account_balance_end_log['params']['user_id'], '105398891')
